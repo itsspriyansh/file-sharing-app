@@ -36,7 +36,7 @@ router.post("/" , (req, res) => {
 
     upload(req, res, async (error) => {
         if (!req.file) {
-            return res.json({error : "all fields are required", content: "" + req.file})
+            return res.json({error : "all fields are required"})
         }
         if (error) {
             res.status(500).send({error : error.message})
@@ -50,6 +50,24 @@ router.post("/" , (req, res) => {
         res.json(file)
         res.json({file : `${process.env.APP_BASE_URL}/file/${file.uuid}`})
     })
+})
+
+router.post("/send", async (req, res) => {
+    const { uuid, emailTo, emailFrom } = req.body
+    if (!uuid || !emailTo || !emailFrom) {
+        res.status(422).json({error : "all fields are required"})                
+    }
+
+    const file = File.findOne({uuid : uuid})
+    if (!file.sender) {
+        res.status(422).json({error : "email already sent"})
+    }
+
+    file.sender = emailFrom
+    file.receiver = emailTo
+    const response = await file.save()
+
+    //file save
 })
 
 module.exports = router
