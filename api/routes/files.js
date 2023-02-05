@@ -47,6 +47,7 @@ router.post("/" , (req, res) => {
             path : req.file.path,
             size : req.file.size,
         })
+        res.json(file)
         res.json({file : `${process.env.APP_BASE_URL}/file/${file.uuid}`})
     })
 })
