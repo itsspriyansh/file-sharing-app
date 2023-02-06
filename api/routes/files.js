@@ -4,6 +4,9 @@ const multer = require("multer")
 const path = require("path")
 const File = require("../models/file")
 const { v4 : uuid } = require("uuid")
+const sendMail = require("../../services/emailService")
+const emailTemplate = require("../../services/emailTemplate")
+require("dotenv").config()
 
 
 const uploadPath = path.join(__dirname, "../../uploads/")
@@ -22,14 +25,6 @@ let upload = multer({
     storage : storage,
     limits : {fileSize : 100 * 1E6},
 }).single("myfile")
-
-router.post ("/text", async (req, res) => {
-    const { data } = req.body
-    const text = await Text.create({
-        data : data
-    })
-    res.send(text)
-})
 
 
 router.post("/" , (req, res) => {
@@ -58,17 +53,27 @@ router.post("/send", async (req, res) => {
         res.status(422).json({error : "all fields are required"})                
     }
 
-    const file = File.findOne({uuid : uuid})
-    if (!file.sender) {
+    const file = await File.findOne({uuid : uuid})
+    if (file.sender) {
         res.status(422).json({error : "email already sent"})
     }
-
+    
     file.sender = emailFrom
     file.receiver = emailTo
     const response = await file.save()
 
-    //file save
+    sendMail({
+        from : emailFrom,
+        to : emailTo,
+        subject : `inShare file sharing`,
+        text : `${emailFrom} sent you a file`,
+        html : emailTemplate({
+            emailFrom : emailFrom,
+            downloadLink : `${process.env.APP_BASE_URL}/files/download/${file.uuid}`,
+            size : file.size,
+            expires : "24hrs",
+        }),
+    })
 })
 
 module.exports = router
-
