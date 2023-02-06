@@ -8,7 +8,6 @@ router.get("/:uuid", async (req, res) => {
     if (!file) {
         res.status(500).json({error : "file doesn't exist!"})
     }
-
     res.download(file.path)
 })
 

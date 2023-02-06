@@ -42,7 +42,7 @@ router.post("/" , (req, res) => {
             path : req.file.path,
             size : req.file.size,
         })
-        res.json(file)
+
         res.json({file : `${process.env.APP_BASE_URL}/file/${file.uuid}`})
     })
 })
@@ -69,11 +69,13 @@ router.post("/send", async (req, res) => {
         text : `${emailFrom} sent you a file`,
         html : emailTemplate({
             emailFrom : emailFrom,
-            downloadLink : `${process.env.APP_BASE_URL}/files/download/${file.uuid}`,
+            downloadLink : `${process.env.APP_BASE_URL}/api/show/${file.uuid}`,
             size : file.size,
             expires : "24hrs",
         }),
     })
+
+    res.send("email sent")
 })
 
 module.exports = router
