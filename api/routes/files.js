@@ -13,7 +13,7 @@ const uploadPath = path.join(__dirname, "../../uploads/")
 
 let storage = multer.diskStorage({
     destination : (req, file, cb) => {
-        return cb(null, uploadPath)
+        return cb(null, "uploads/")
     },
     filename : (req, file, cb) => {
         const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`
@@ -54,9 +54,9 @@ router.post("/send", async (req, res) => {
     }
 
     const file = await File.findOne({uuid : uuid})
-    if (file.sender) {
-        res.status(422).json({error : "email already sent"})
-    }
+    // if (file.sender) {
+    //     res.status(422).json({error : "email already sent"})
+    // }
     
     file.sender = emailFrom
     file.receiver = emailTo

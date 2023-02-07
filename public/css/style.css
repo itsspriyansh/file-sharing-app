@@ -51,6 +51,20 @@ section.download {
     transition: all .3s ease-in-out;
   }
 
+  .send-btn-container button {
+    display: inline-block;
+    font-size: 18px;
+    padding: 8px 40px;
+    margin-top: 15px;
+    background: var(--light-blue);
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+  }
+
   .send-btn-container a:hover {
       background: var(--dark-blue);
   }
