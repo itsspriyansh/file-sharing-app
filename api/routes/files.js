@@ -52,7 +52,7 @@ router.post("/send", async (req, res) => {
     if (!uuid || !emailTo || !emailFrom) {
         res.status(422).json({error : "all fields are required"})                
     }
-
+    
     const file = await File.findOne({uuid : uuid})
     if (file.sender) {
         res.status(422).json({error : "email already sent"})
@@ -74,7 +74,7 @@ router.post("/send", async (req, res) => {
             expires : "24hrs",
         }),
     })
-
+    
     res.render("success")
 })
 
