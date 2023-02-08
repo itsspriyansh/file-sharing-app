@@ -12,14 +12,28 @@
 <body>
     <img src="/img/logo.png" alt="Inshare logo" class="logo">
 
-    <form method="post" action="/api/files" enctype="multipart/form-data">
+    <form method="post" action="/api/files/send">
         <section class="download">
-            <center>Upload File</center>
+            <center>Share the download link</center>
             <p></p><p></p>
-            <p><%= downloadLink %></p>
+            <div style="padding: 20px 20px; background-color: rgb(240, 240, 240); overflow-x: scroll; border-radius: 5px; font-weight: 300; font-size: 1.1rem;">
+                <%= downloadLink %>
+            </div>
             <p></p><p></p>
+            <div style="height: 1rem; width: 10rem;"></div>
+            <p>
+                or send via email
+            </p>
+            <div style="height: 1rem; width: 10rem;"></div>
+            <label for="sender">Your email: </label>
+            <input type="text" name="sender" style="height: 20px; border-radius: 5px; border: 1px solid gray; width: 13rem; margin-right: 18px;"></input>
+            <div style="height: 0.5rem; width: 10rem;"></div>
+            <br />
+            <label for="receiver">Send to: </label>
+            <input type="text" name="receiver" style="height: 20px; border-radius: 5px; border: 1px solid gray; width: 13rem;"></input>
+            <div style="height: 0.5rem; width: 10rem;"></div>
         <div class="send-btn-container">
-            <button type="submit">Upload file</button>
+            <button type="submit">Send</button>
         </div>
     </section>
 </form>
