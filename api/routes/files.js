@@ -54,9 +54,9 @@ router.post("/send", async (req, res) => {
     }
 
     const file = await File.findOne({uuid : uuid})
-    // if (file.sender) {
-    //     res.status(422).json({error : "email already sent"})
-    // }
+    if (file.sender) {
+        res.status(422).json({error : "email already sent"})
+    }
     
     file.sender = emailFrom
     file.receiver = emailTo
@@ -75,7 +75,7 @@ router.post("/send", async (req, res) => {
         }),
     })
 
-    res.send("email sent")
+    res.send("email sent successfully!")
 })
 
 module.exports = router

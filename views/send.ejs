@@ -34,15 +34,16 @@
             </p>
             <div style="height: 1rem; width: 10rem;"></div>
             <label for="sender">Your email: </label>
-            <input type="text" name="sender" style="height: 20px; border-radius: 5px; border: 1px solid gray; width: 13rem; margin-right: 18px;"></input>
+                <input type="text" name="emailFrom" style="height: 20px; border-radius: 5px; border: 1px solid gray; width: 13rem; margin-right: 18px;"></input>
             <div style="height: 0.5rem; width: 10rem;"></div>
             <br />
             <label for="receiver">Send to: </label>
-            <input type="text" name="receiver" style="height: 20px; border-radius: 5px; border: 1px solid gray; width: 13rem;"></input>
+                <input type="text" name="emailTo" style="height: 20px; border-radius: 5px; border: 1px solid gray; width: 13rem;"></input>
             <div style="height: 0.5rem; width: 10rem;"></div>
         <div class="send-btn-container">
             <button type="submit">Send</button>
         </div>
+            <input name="uuid" style="display : none;" value=<%= uuid %>></input>
     </section>
 </form>
 
