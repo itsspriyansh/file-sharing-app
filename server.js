@@ -7,6 +7,7 @@ const files = require("./api/routes/files")
 const show = require("./api/routes/show")
 const download = require("./api/routes/download")
 const upload = require("./api/routes/upload")
+const send = require("./api/routes/send")
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -26,6 +27,7 @@ app.use("/", upload)
 app.use("/api/files", files)
 app.use("/api/show", show)
 app.use("/files/download", download)
+app.use("/send", send)
 
 app.listen(PORT, () => console.log(`server is listening on port: ${PORT}`))
 

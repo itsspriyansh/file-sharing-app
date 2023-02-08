@@ -39,7 +39,7 @@ router.post("/", upload.single("myfile"), async (req, res) => {
         size : req.file.size,
     })
 
-    res.redirect("/")
+    res.redirect(`/send/${file.uuid}`)
 })
 
 
