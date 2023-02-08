@@ -75,7 +75,7 @@ router.post("/send", async (req, res) => {
         }),
     })
 
-    res.send("email sent successfully!")
+    res.render("success")
 })
 
 module.exports = router
