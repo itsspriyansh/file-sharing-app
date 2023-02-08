@@ -39,8 +39,7 @@ router.post("/", upload.single("myfile"), async (req, res) => {
         size : req.file.size,
     })
 
-    console.log(file)
-    res.json({file : `${process.env.APP_BASE_URL}/file/${file.uuid}`})
+    res.redirect("/")
 })
 
 
