@@ -32,6 +32,10 @@ router.post("/", upload.single("myfile"), async (req, res) => {
         return res.json({error : "all fields are required"})
     }
 
+    if (req.file.size > 5 * 1E6) {
+        res.send("file too large!")
+    }
+
     const file = await File.create({
         filename : req.file.filename,
         uuid : uuid(),
