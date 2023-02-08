@@ -24,28 +24,25 @@ let storage = multer.diskStorage({
 let upload = multer({
     storage : storage,
     limits : {fileSize : 100 * 1E6},
-}).single("myfile")
-
-
-router.post("/" , (req, res) => {
-
-    upload(req, res, async (error) => {
-        if (!req.file) {
-            return res.json({error : "all fields are required"})
-        }
-        if (error) {
-            res.status(500).send({error : error.message})
-        }
-        const file = await File.create({
-            filename : req.file.filename,
-            uuid : uuid(),
-            path : req.file.path,
-            size : req.file.size,
-        })
-
-        res.json({file : `${process.env.APP_BASE_URL}/file/${file.uuid}`})
-    })
 })
+
+
+router.post("/", upload.single("myfile"), async (req, res) => {
+    if (!req.file) {
+        return res.json({error : "all fields are required"})
+    }
+
+    const file = await File.create({
+        filename : req.file.filename,
+        uuid : uuid(),
+        path : req.file.path,
+        size : req.file.size,
+    })
+
+    console.log(file)
+    res.json({file : `${process.env.APP_BASE_URL}/file/${file.uuid}`})
+})
+
 
 router.post("/send", async (req, res) => {
     const { uuid, emailTo, emailFrom } = req.body
